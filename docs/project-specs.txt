@@ -1,40 +1,49 @@
 Streamlit analytics dashboard
 
---An interactivd dashboard built on streambit as frontend, sqlite backend, inclsuing machine learning engine for prognosis.
---Intended as a practise project for broad sodtware engineering skills.
---Intended user is a shallow stock broker analyst.
+-- An interactive dashboard built on Streamlit as frontend, SQLite (or PostgreSQL) backend, including a machine learning engine for prognosis.
+-- Intended as a practice project to develop broad software engineering and data science skills.
+-- Target user is a stock broker analyst needing quick, shallow insights.
 
---Core features: 
-  real time api fetching (Alpha Vantage or Finnhub for financial/stock market data)
-  data storage (sql)
-  live dashboard
-  visualization 
-  some predictive analysis engine
-  authentication
+-- Core features:
+  • Real-time API fetching from Alpha Vantage or Finnhub for financial/stock market data
+  • Data storage in a SQL database for historical and live data
+  • Live dashboard using Streamlit to display current quotes and trends
+  • Interactive visualizations (line charts, candlestick charts, histograms) with symbol/date filters
+  • Predictive analytics engine offering methods like linear regression, ARIMA, exponential smoothing
+  • User authentication for secure access and personalized settings
 
---Technical specs:
-  python, 
-  SQL (SQLite/Postgres), 
-  Streamlit, 
-  JavaScript, 
-  API integrations, 
-  ML libraries
+-- Technical specifications:
+  • Python for backend logic, API integration, and ML models
+  • SQL (SQLite for development; PostgreSQL or TimescaleDB for production) via SQLAlchemy
+  • Streamlit for frontend dashboard
+  • JavaScript for optional custom components or interactivity
+  • Requests library for HTTP calls to external APIs
+  • scikit-learn and statsmodels for machine learning and time-series forecasting
 
---File outline
+-- Database architecture:
+  • Use SQLAlchemy to manage connections and transactions while writing raw SQL queries via text() bindings
+  • Define DATABASE_URL in database.py; swap from SQLite to PostgreSQL by changing one connection string
+  • At startup, execute raw DDL to create tables (e.g., quotes with id, symbol, price, timestamp)
+  • repository.py contains functions that execute INSERT and SELECT statements with bound parameters
+  • service layer orchestrates API calls and repository functions, includes caching (e.g., in-memory LRU) and scheduled ingestion jobs
+
+-- File outline:
 streamlit-analytics-dashboard/
 ├── README.md
 ├── docs/
-│   └── project-specification.md
+│   └── project-specification.txt    # This file, in simple txt style
 ├── data/
 │   └── .gitkeep
 ├── src/
-│   ├── app.py               # Main Streamlit application
-│   ├── api_client.py        # Handles API calls (Alpha Vantage/Finnhub)
-│   ├── database.py          # Database setup and data storage
-│   ├── visualization.py     # Data visualization functions
-│   ├── prediction.py        # Predictive analytics engine
-│   └── auth.py              # User authentication module
+│   ├── app.py                       # Main Streamlit application
+│   ├── api_client.py                # HTTP calls to Alpha Vantage or Finnhub
+│   ├── database.py                  # SQLAlchemy engine and session setup
+│   ├── repository.py                # Raw SQL execution for quotes and historical data
+│   ├── visualization.py             # Functions for building charts
+│   ├── prediction.py                # ML models for forecasting
+│   └── auth.py                      # User authentication logic
 ├── notebooks/
-│   └── exploratory_analysis.ipynb
-├── requirements.txt
-└── .gitignore
+│   └── exploratory_analysis.ipynb   # Data exploration and ML prototyping
+├── requirements.txt                 # Dependencies list
+└── .gitignore                       # Ignore .env and other sensitive files
+
