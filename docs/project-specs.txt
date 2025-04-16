@@ -20,3 +20,21 @@ Streamlit analytics dashboard
   API integrations, 
   ML libraries
 
+--File outline
+streamlit-analytics-dashboard/
+├── README.md
+├── docs/
+│   └── project-specification.md
+├── data/
+│   └── .gitkeep
+├── src/
+│   ├── app.py               # Main Streamlit application
+│   ├── api_client.py        # Handles API calls (Alpha Vantage/Finnhub)
+│   ├── database.py          # Database setup and data storage
+│   ├── visualization.py     # Data visualization functions
+│   ├── prediction.py        # Predictive analytics engine
+│   └── auth.py              # User authentication module
+├── notebooks/
+│   └── exploratory_analysis.ipynb
+├── requirements.txt
+└── .gitignore
